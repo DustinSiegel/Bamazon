@@ -41,7 +41,7 @@ function userPrompt() { //asks the customer for an id number for the desired ite
 	      	{
 	        	name: "itemChoice",
 	        	type: "input",
-	        	message: "Enter the number of product you would like to perchase. ",
+	        	message: "Enter the number of the product that you would like to perchase. ",
 	        	validate: function(value) {
 	         	
 	         	if (isNaN(value) === false) {
@@ -69,13 +69,13 @@ function userPrompt() { //asks the customer for an id number for the desired ite
 
 	    .then(function(answer) {
 	      	
-	      	console.log(answer);
-				
+			checkQuantity(answer);	
 		});
 };
-// function checkQuantity() {	//Checkes if there are enough of the item requested in stock to fulfill the customer order. Alerts the user if there is insufficient quantities.
 
-// };
+function checkQuantity(answer) {	//Checkes if there are enough of the item requested in stock to fulfill the customer order. Alerts the user if there is insufficient quantities.
+	console.log(answer);
+};
 
 // function fulfillOrder() { //Updates the database to reflect the removal of the customer order and gives a total cost for the order.
 
