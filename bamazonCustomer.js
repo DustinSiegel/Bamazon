@@ -1,20 +1,22 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var connection = mysql.createConnection({
+  
   host: "localhost",
   port: 3306,
-  // Your username
   user: "root",
-  // Your password
   password: "",
   database: "bamazonDB"
 });
+
 connection.connect(function(err) {
+  
   if (err) throw err;
   showDataBase();
 });
 
 function showDataBase() { //Distplays the items for sale.
+	
 	var query = "SELECT item_id,product_name,department_name,price FROM products";
 	connection.query(query, function(err, data) {
     	    
@@ -23,19 +25,19 @@ function showDataBase() { //Distplays the items for sale.
             console.log("---------------------#" + data[i].item_id + "---------------------");
 			console.log("Product Name: " + data[i].product_name + "\n" + "Catagory: " + data[i].department_name + "\n" + "Price: $" + data[i].price);
 		};
+
+		userPrompt();
 		
 		if (err) throw err;
-
-		else {
-			userPrompt();
-		};
       	
     });  
 };
 
 function userPrompt() { //asks the customer for an id number for the desired item and a quantity to purchase.
+	
 	inquirer
 	    .prompt([
+	      	
 	      	{
 	        	name: "itemChoice",
 	        	type: "input",
@@ -49,6 +51,7 @@ function userPrompt() { //asks the customer for an id number for the desired ite
 	          	return false;
 	        	}
 	      	},
+
 	      	{
 	        	name: "itemQuantity",
 	        	type: "input",
@@ -63,15 +66,12 @@ function userPrompt() { //asks the customer for an id number for the desired ite
 	      		  	}
 	      	}
 	    ])
+
 	    .then(function(answer) {
-	      	var query = "SELECT item_id,product_name,department_name,price FROM products";
-	      	connection.query(query, [answer.itemChoice, answer.itemQuantity], function(err, res) {
-	        	for (var i = 0; i < res.length; i++) {
-	        		console.log("You have selected: ");
-	          		console.log("Product Name: " + data[i].product_name + "\n" + "Catagory: " + data[i].department_name + "\n" + "Price: $" + data[i].price);
-				};
-			});
-	    });
+	      	
+	      	console.log(answer);
+				
+		});
 };
 // function checkQuantity() {	//Checkes if there are enough of the item requested in stock to fulfill the customer order. Alerts the user if there is insufficient quantities.
 
